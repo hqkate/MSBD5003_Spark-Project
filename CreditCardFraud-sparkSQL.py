@@ -10,7 +10,16 @@ dataset = spark.read.csv("/home/kate/Documents/creditcard.csv", header="true", i
 # Overview of the dataset
 fraud = dataset.filter("Class = '1'") # count() = 492
 valid = dataset.filter("Class = '0'") # count() = 284315
-summary = Statistics.colStats(dataset)
+
+# deal with the unbalanced dataset
+new_data = 
+
+# Correlation check
+header = dataset.schema.names
+
+for i in range(30):
+  feature = header[i]
+  print dataset.stat.corr(feature,'Class')
 
 # Set up training and testing dataset
 fraud_train = 
