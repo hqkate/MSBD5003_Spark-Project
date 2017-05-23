@@ -20,3 +20,7 @@ dfCustomer = dfCustomer.select('CustomerID','SalesPerson')
 dfAll = dfHeader.join(dfDetail,'SalesOrderID').join(dfCustomer,'CustomerID')
 dfAll.groupBy('SalesPerson').sum('TotalPrice').show()
 
+#3
+g1 = g.vertices.join(g.inDegrees, 'id', 'outer').join(g.outDegrees,'id').filter('inDegree is null')
+
+g1.orderBy('outDegree',ascending=False).first().name
