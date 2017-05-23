@@ -1,0 +1,5 @@
+from operator import add
+
+counts = pairs.map(lambda x: (x, 1)).reduceByKey(add)
+
+counts.sortBy(lambda x: x[1], False).take(10)
