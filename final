@@ -3,3 +3,20 @@ from operator import add
 counts = pairs.map(lambda x: (x, 1)).reduceByKey(add)
 
 counts.sortBy(lambda x: x[1], False).take(10)
+
+
+#2
+dfHeader = dfHeader.select('SalesOrderID','CustomerID')
+dfDetail = dfDetail.select('*', (dfDetail.UnitPrice * dfDetail. OrderQty
+                      * (1 - dfDetail.UnitPriceDiscount)).alias('netprice'))\
+    .groupBy('SalesOrderID').sum('netprice')\
+    .withColumnRenamed('sum(netprice)', 'TotalPrice')\
+    .select('SalesOrderID','TotalPrice')
+
+
+dfCustomer = dfCustomer.select('CustomerID','SalesPerson')
+
+
+dfAll = dfHeader.join(dfDetail,'SalesOrderID').join(dfCustomer,'CustomerID')
+dfAll.groupBy('SalesPerson').sum('TotalPrice').show()
+
